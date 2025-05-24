@@ -1,0 +1,40 @@
+name: django-orm-challenge-mode
+
+services:
+  challenge-mode-db:
+    image: postgres:17.4-alpine3.21
+    container_name: db_orm_challenge_mode
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: inventory
+    ports:
+      - "5435:5432"
+    volumes:
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./postgres/data:/data
+
+  challenge-mode-django:
+    build: ./challenges
+    container_name: app_orm_challenge_mode
+    restart: always
+    depends_on:
+      - challenge-mode-db
+    volumes:
+      - ./challenges:/app
+    ports:
+      - "8080:8080"
+    command: >
+      sh -c "
+          if python manage.py shell -c 'from django.contrib.auth.models import User; print(User.objects.filter(username=\"admin\").exists())' | grep -q 'True'; then
+            echo 'Admin user exists, skipping app and database setup';
+          else
+            rm -f inventory/migrations/0001_initial.py &&
+            python manage.py migrate &&
+            python manage.py makemigrations &&
+            python manage.py migrate inventory --fake &&
+            python manage.py shell -c 'from django.contrib.auth.models import User; User.objects.create_superuser(\"admin\", \"admin@example.com\", \"admin\");' ;
+          fi &&
+          python manage.py runserver 0.0.0.0:8080
+        "
