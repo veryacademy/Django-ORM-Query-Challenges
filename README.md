@@ -2,7 +2,7 @@
 Want to level up your DRF ORM Query skills? Our **Django DRF ORM Query Fundamentals Course** covers everything from basics to advanced queries.  
 
 🔥 **Join the Udemy Course today and start learning!**  
-📌 [Click here to enroll now!](https://www.udemy.com/course/django-drf-query-fundamentals/?referralCode=1CFCB355D90D3DA11077)  
+📌 [Click here to enroll now!](https://www.udemy.com/course/django-4x-orm-mastery/?referralCode=75E80C2B6B6A61993881)  
 
 ---
 
