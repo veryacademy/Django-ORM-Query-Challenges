@@ -33,20 +33,14 @@ class ProductSerializer(serializers.ModelSerializer):
 )
 class challenge_2_1_ViewSet(ViewSet):
     #########################################
-    # Task: Get the First and Last 5 Added Products
-    # Filter: Active products only
-    # Return: All fields
+    # Task: Retrieve the First and Last Five Product Entries
+    # Filter[1]: Active products only
+    # Order By: id
+    # Fields: All fields
+    # Extra[1]: Should not return duplicate records.
     #########################################
 
-    # def list(self, request):
-    #     products = list(
-    #         Product.objects.filter(is_active=True).order_by("id")[:5]
-    #     ) + list(Product.objects.filter(is_active=True).order_by("-id")[:5])
-    #     products = list({p.id: p for p in products}.values())
-
-    #     serializer = ProductSerializer(products, many=True)
-    #     return Response(serializer.data)
-
+    # Approach 1:
     # def list(self, request):
     #     queryset = Product.objects.filter(is_active=True).order_by("id")
     #     total = queryset.count()
@@ -59,12 +53,40 @@ class challenge_2_1_ViewSet(ViewSet):
     #     serializer = ProductSerializer(products, many=True)
     #     return Response(serializer.data)
 
+    # Approach 2.1:
+    # def list(self, request):
+    #     products = list(
+    #         Product.objects.filter(is_active=True).order_by("id")[:5]
+    #     ) + list(Product.objects.filter(is_active=True).order_by("-id")[:5])
+    #     products = list({p.id: p for p in products}.values())
+
+    #     serializer = ProductSerializer(products, many=True)
+    #     return Response(serializer.data)
+
+    # Approach 2.2:
+    # def list(self, request):
+    #     first_five = Product.objects.filter(is_active=True).order_by("id")[:5]
+    #     last_five = Product.objects.filter(is_active=True).order_by("-id")[:5]
+
+    #     # Combine and remove any duplicates by ID
+    #     combined = list({p.id: p for p in list(first_five) + list(last_five)}.values())
+
+    #     serializer = ProductSerializer(combined, many=True)
+    #     return Response(serializer.data)
+
+    # Approach 2.3:
     def list(self, request):
-        first_five = Product.objects.filter(is_active=True).order_by("id")[:5]
-        last_five = Product.objects.filter(is_active=True).order_by("-id")[:5]
+        # Query for the first five active products ordered by ID ascending
+        first_five_queryset = Product.objects.filter(is_active=True).order_by("id")[:5]
 
-        # Combine and remove any duplicates by ID
-        combined = list({p.id: p for p in list(first_five) + list(last_five)}.values())
+        # Query for the last five active products ordered by ID descending
+        last_five_queryset = Product.objects.filter(is_active=True).order_by("-id")[:5]
 
-        serializer = ProductSerializer(combined, many=True)
+        # Combine the two querysets using .union()
+        # By default, union() performs a UNION DISTINCT, removing duplicates.
+        # If you needed UNION ALL, you'd use .union(..., all=True)
+        combined_products = first_five_queryset.union(last_five_queryset)
+
+        # The combined_products is now a QuerySet, which can be directly serialized.
+        serializer = ProductSerializer(combined_products, many=True)
         return Response(serializer.data)
