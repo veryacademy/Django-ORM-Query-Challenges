@@ -29,10 +29,10 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 @extend_schema(
-    tags=["_1_x Challenge Endpoint"],
+    tags=["_2_x Challenge Endpoint"],
     responses={200: OrderSerializer(many=True)},
 )
-class challenge_1_2_ViewSet(ViewSet):
+class challenge_2_2_ViewSet(ViewSet):
     #########################################
     # Task: Retrieve Orders from the Last 30 Days
     # Return: All fields

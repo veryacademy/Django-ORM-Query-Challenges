@@ -40,18 +40,12 @@ class challenge_2_1_ViewSet(ViewSet):
     # Extra[1]: Should not return duplicate records.
     #########################################
 
+
     def list(self, request):
-        # Query for the first five active products ordered by ID ascending
-        first_five_queryset = Product.objects.filter(is_active=True).order_by("id")[:5]
+        #############
+        # Replace ... with your solution.
+        # Note: Prepare data in variable products
+        #############
 
-        # Query for the last five active products ordered by ID descending
-        last_five_queryset = Product.objects.filter(is_active=True).order_by("-id")[:5]
-
-        # Combine the two querysets using .union()
-        # By default, union() performs a UNION DISTINCT, removing duplicates.
-        # If you needed UNION ALL, you'd use .union(..., all=True)
-        combined_products = first_five_queryset.union(last_five_queryset)
-
-        # The combined_products is now a QuerySet, which can be directly serialized.
-        serializer = ProductSerializer(combined_products, many=True)
+        serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)

@@ -1,6 +1,5 @@
 # 🟡 Solution ch_2_1 – Get the First and Last 5 Added Products
 ```python
-
     # Approach 1: Query Once, Slice in Memory
     def list(self, request):
         queryset = Product.objects.filter(is_active=True).order_by("id")
@@ -36,7 +35,7 @@
 
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)
-        
+
     # Approach 2.3:
     def list(self, request):
         # Query for the first five active products ordered by ID ascending
@@ -53,14 +52,16 @@
         # The combined_products is now a QuerySet, which can be directly serialized.
         serializer = ProductSerializer(combined_products, many=True)
         return Response(serializer.data)
-
-
-
-
 ```
 
 # 🔵 Solution ch_2_2 – Retrieve Orders from the Last 30 Days
 ```python
+def list(self, request):
+    thirty_days_ago = now() - timedelta(days=30)
+    orders = Order.objects.filter(created_at__gte=thirty_days_ago)
+
+    serializer = OrderSerializer(orders, many=True)
+    return Response(serializer.data)
 ```
 
 # 🟣 Solution ch_2_3 – Find Products in Multiple Categories (IDs: 1, 4, 8, 11)
