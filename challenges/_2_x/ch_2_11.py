@@ -28,27 +28,23 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 @extend_schema(
-    tags=["_1_x Challenge Endpoint"],
+    tags=["_2_x Challenge Endpoint"],
     responses={
         200: ProductSerializer(many=True)
     },  # It returns a list, even if it's just one item
 )
-class challenge_1_10_ViewSet(ViewSet):
+class challenge_2_11_ViewSet(ViewSet):
     #########################################
     # Task: Return the 20th most expensive product
-    # Logic: order_by('-price')[19:20]
     # Return: All fields
     #########################################
 
     def list(self, request):
-        # Order products by price in descending order (most expensive first).
-        # Then, use slicing [19:20] to get the 20th product (0-indexed, so index 19).
-        # This slice will return a queryset containing at most one product.
-        products = Product.objects.order_by("-price")[19:20]
+        #############
+        # Replace ... with your solution.
+        # Note: Prepare data in variable products
+        #############
+        ...
 
-        # Serialize the queryset. 'many=True' is used because even a single item
-        # extracted via slicing still results in a queryset (a list-like object).
         serializer = ProductSerializer(products, many=True)
-
-        # Return the serialized data as a REST framework Response.
         return Response(serializer.data)

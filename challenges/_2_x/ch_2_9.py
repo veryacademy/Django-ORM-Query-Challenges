@@ -28,23 +28,21 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 @extend_schema(
-    tags=["_1_x Challenge Endpoint"],
+    tags=["_2_x Challenge Endpoint"],
     responses={200: ProductSerializer(many=True)},
 )
-class challenge_1_8_ViewSet(ViewSet):
+class challenge_2_9_ViewSet(ViewSet):
     #########################################
     # Task: Show the Top 10 Most Expensive Active Products
-    # Logic: is_active=True, order_by('-price'), [:10]
     # Return: All fields
     #########################################
 
     def list(self, request):
-        # Filter for products that are active, order them by price in descending order
-        # (most expensive first), and then slice the queryset to get only the top 10.
-        products = Product.objects.filter(is_active=True).order_by("-price")[:10]
+        #############
+        # Replace ... with your solution.
+        # Note: Prepare data in variable products
+        #############
+        ...
 
-        # Serialize the filtered and ordered queryset. 'many=True' indicates that we are serializing a list of objects.
         serializer = ProductSerializer(products, many=True)
-
-        # Return the serialized data as a REST framework Response.
         return Response(serializer.data)

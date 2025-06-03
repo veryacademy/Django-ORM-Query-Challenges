@@ -28,22 +28,22 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 @extend_schema(
-    tags=["_1_x Challenge Endpoint"],
+    tags=["_2_x Challenge Endpoint"],
     responses={200: ProductSerializer(many=True)},
 )
-class challenge_1_7_ViewSet(ViewSet):
+class challenge_2_8_ViewSet(ViewSet):
     #########################################
-    # Task: Find Products Ending with the Letter 'E'
-    # Logic: name__endswith='E'
+    # Task: Find Products Ending with the Letter 'e'
     # Return: All fields
     #########################################
 
     def list(self, request):
-        # Filter products where the 'name' field ends with the letter 'E'.
-        products = Product.objects.filter(name__endswith="E")
+        #############
+        # Replace ... with your solution.
+        # Note: Prepare data in variable products
+        #############
+        products = Product.objects.filter(name__iendswith="e")
 
-        # Serialize the filtered queryset. 'many=True' indicates that we are serializing a list of objects.
         serializer = ProductSerializer(products, many=True)
 
-        # Return the serialized data as a REST framework Response.
         return Response(serializer.data)

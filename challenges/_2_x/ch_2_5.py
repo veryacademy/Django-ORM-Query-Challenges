@@ -28,18 +28,22 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 @extend_schema(
-    tags=["_1_x Challenge Endpoint"],
+    tags=["_2_x Challenge Endpoint"],
     responses={200: ProductSerializer(many=True)},
 )
-class challenge_1_5_ViewSet(ViewSet):
+class challenge_2_5_ViewSet(ViewSet):
     #########################################
     # Task: Exclude Products Priced 19.99 and Under 100
-    # Logic: price != 19.99 AND price >= 100
+    # Logic: price != 19.99 AND price < 100
     # Return: All fields
     #########################################
 
     def list(self, request):
-        products = Product.objects.exclude(price=19.99).filter(price__gte=100)
+        #############
+        # Replace ... with your solution.
+        # Note: Prepare data in variable products
+        #############
+        ...
 
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)

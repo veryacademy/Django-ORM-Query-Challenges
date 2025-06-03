@@ -40,12 +40,12 @@ class challenge_2_1_ViewSet(ViewSet):
     # Extra[1]: Should not return duplicate records.
     #########################################
 
-
     def list(self, request):
         #############
         # Replace ... with your solution.
         # Note: Prepare data in variable products
         #############
+        ...
 
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)

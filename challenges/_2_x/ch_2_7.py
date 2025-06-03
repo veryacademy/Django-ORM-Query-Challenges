@@ -28,22 +28,22 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 @extend_schema(
-    tags=["_1_x Challenge Endpoint"],
+    tags=["_2_x Challenge Endpoint"],
     responses={200: ProductSerializer(many=True)},
 )
-class challenge_1_6_ViewSet(ViewSet):
+class challenge_2_7_ViewSet(ViewSet):
     #########################################
-    # Task: Get Products Starting with the Letter 'W'
-    # Logic: name__startswith='W'
+    # Task: Get Products Name Starting with the Letter 'W'
     # Return: All fields
     #########################################
 
     def list(self, request):
-        # Filter products where the 'name' field starts with the letter 'W'.
-        products = Product.objects.filter(name__startswith="W")
+        #############
+        # Replace ... with your solution.
+        # Note: Prepare data in variable products
+        #############
+        ...
 
-        # Serialize the filtered queryset. 'many=True' indicates that we are serializing a list of objects.
         serializer = ProductSerializer(products, many=True)
 
-        # Return the serialized data as a REST framework Response.
         return Response(serializer.data)

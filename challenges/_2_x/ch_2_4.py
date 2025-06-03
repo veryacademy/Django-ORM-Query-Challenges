@@ -28,18 +28,22 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 @extend_schema(
-    tags=["_1_x Challenge Endpoint"],
+    tags=["_2_x Challenge Endpoint"],
     responses={200: ProductSerializer(many=True)},
 )
-class challenge_1_4_ViewSet(ViewSet):
+class challenge_2_4_ViewSet(ViewSet):
     #########################################
-    # Task: List Products Priced Between 50 and 1000
+    # Task: Return a list of Products Priced Between 50 and 1000
     # Filter: price >= 50 and price <= 1000
     # Return: All fields
     #########################################
 
     def list(self, request):
-        products = Product.objects.filter(price__gte=50, price__lte=1000)
+        #############
+        # Replace ... with your solution.
+        # Note: Prepare data in variable products
+        #############
+        ...
 
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)

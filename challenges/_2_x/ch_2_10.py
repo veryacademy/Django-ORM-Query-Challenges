@@ -13,6 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
     """
     Serializer for the User model, exposing specific fields.
     """
+
     class Meta:
         model = User
         fields = [
@@ -28,22 +29,21 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 @extend_schema(
-    tags=["_1_x Challenge Endpoint"],
+    tags=["_2_x Challenge Endpoint"],
     responses={200: UserSerializer(many=True)},
 )
-class challenge_1_9_ViewSet(ViewSet):
+class challenge_2_10_ViewSet(ViewSet):
     #########################################
     # Task: Find Users with Emails Ending in 'example.com'
-    # Logic: email__endswith='example.com'
     # Return: id, username, email
     #########################################
 
     def list(self, request):
-        # Filter User objects where the 'email' field ends with 'example.com'.
-        users = User.objects.filter(email__endswith='example.com')
+        #############
+        # Replace ... with your solution.
+        # Note: Prepare data in variable users
+        #############
+        ...
 
-        # Serialize the filtered queryset. 'many=True' indicates that we are serializing a list of objects.
         serializer = UserSerializer(users, many=True)
-        
-        # Return the serialized data as a REST framework Response.
         return Response(serializer.data)

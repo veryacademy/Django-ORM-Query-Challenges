@@ -19,6 +19,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "description",
             "price",
             "is_active",
+            "category_id",
         ]
 
 
@@ -28,10 +29,10 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 @extend_schema(
-    tags=["_1_x Challenge Endpoint"],
+    tags=["_2_x Challenge Endpoint"],
     responses={200: ProductSerializer(many=True)},
 )
-class challenge_1_3_ViewSet(ViewSet):
+class challenge_2_3_ViewSet(ViewSet):
     #########################################
     # Task: Find Products in Multiple Categories
     # Filter: Category IDs: 1, 4, 8, 11
@@ -39,8 +40,11 @@ class challenge_1_3_ViewSet(ViewSet):
     #########################################
 
     def list(self, request):
-        category_ids = [1, 4, 8, 11]
-        products = Product.objects.filter(category_id__in=category_ids)
+        #############
+        # Replace ... with your solution.
+        # Note: Prepare data in variable products
+        #############
+        ...
 
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)

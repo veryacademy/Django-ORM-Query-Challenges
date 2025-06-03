@@ -28,22 +28,21 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 @extend_schema(
-    tags=["_1_x Challenge Endpoint"],
+    tags=["_2_x Challenge Endpoint"],
     responses={200: ProductSerializer(many=True)},
 )
-class challenge_1_11_ViewSet(ViewSet):
+class challenge_2_12_ViewSet(ViewSet):
     #########################################
     # Task: Fetch Products with No Description
-    # Logic: description__isnull=True
     # Return: All fields
     #########################################
 
     def list(self, request):
-        # Filter Product objects where the 'description' field is null (i.e., has no description).
-        products = Product.objects.filter(description__isnull=True)
+        #############
+        # Replace ... with your solution.
+        # Note: Prepare data in variable products
+        #############
+        ...
 
-        # Serialize the filtered queryset. 'many=True' indicates that we are serializing a list of objects.
         serializer = ProductSerializer(products, many=True)
-
-        # Return the serialized data as a REST framework Response.
         return Response(serializer.data)

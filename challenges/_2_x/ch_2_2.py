@@ -39,8 +39,11 @@ class challenge_2_2_ViewSet(ViewSet):
     #########################################
 
     def list(self, request):
-        thirty_days_ago = now() - timedelta(days=30)
-        orders = Order.objects.filter(created_at__gte=thirty_days_ago)
+        #############
+        # Replace ... with your solution.
+        # Note: Prepare data in variable orders
+        #############
+        ...
 
         serializer = OrderSerializer(orders, many=True)
         return Response(serializer.data)

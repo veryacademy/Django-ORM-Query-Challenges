@@ -13,7 +13,6 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            "id",
             "username",
             "email",
         ]
@@ -25,18 +24,21 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 @extend_schema(
-    tags=["_1_x Challenge Endpoint"],
+    tags=["_2_x Challenge Endpoint"],
     responses={200: UserSerializer(many=True)},
 )
 class challenge_2_6_ViewSet(ViewSet):
     #########################################
-    # Task: Find Users Named janedoe or johndoe
-    # Filter: username IN ['janedoe', 'johndoe']
+    # Task: Return Users Named janedoe or johndoe
     # Return: All fields in serializer
     #########################################
 
     def list(self, request):
-        users = User.objects.filter(username__in=["janedoe", "johndoe"])
+        #############
+        # Replace ... with your solution.
+        # Note: Prepare data in variable users
+        #############
+        ...
 
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
